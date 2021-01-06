@@ -1,0 +1,58 @@
+@startuml
+skinparam packageStyle rectangle
+actor :User: as user
+
+rectangle "Schedule appointment" {
+    (UC_01_open-home-menu) as uc01
+
+    (UC_02_select-closest-date-automatically) as uc02
+        (UC_03_confirm-using-automatically-chosen-date) as uc03
+
+    (UC_04_search-in-calendar) as uc04
+        (UC_05_choose-preferred-date) as uc05
+        (UC_06_choose-preferred-hour) as uc06
+
+    (UC_07_select-type-of-appointment) as uc07
+        (UC_08_online-consultation) as uc08
+        (UC_09_presential-consultation) as uc09
+
+        (UC_10_help) as uc10
+
+    (UC_11_add-item-to-cart) as uc11
+    (UC_12_shopping-cart) as uc12
+        (UC_13_change-credit-card) as uc13
+            (UC_14_add-new-credit-card) as uc14
+            (UC_15_select-other-credit-card) as uc15
+        (UC_16_check-out) as uc16
+    
+    user -up- uc01
+
+    uc01 -up-> uc02 : << includes >>
+    uc01 -up-> uc04 : << includes >>
+
+    uc02 <.up. uc03 : << extends >>
+    
+    uc04 <.up. uc05 : << extends >>
+    uc05 <.up. uc06 : << extends >>
+
+    uc07 ..> uc03 : << extends >>
+    uc07 ..> uc06 : << extends >>
+
+    uc07 .up.> uc08 : << includes >>
+    uc07 .up.> uc09 : << includes >>
+    uc07 .right.> uc10 : << includes >>
+
+    uc08 <.up. uc11 : << extends >>
+    uc09 <.up. uc11 : << extends >>
+
+    uc11 <.up. uc12 : << extends >>
+
+    uc12 .left.> uc13 : << includes >>
+    uc12 .up.> uc16 : << includes >>
+
+    uc13 .up.> uc14 : << includes >>
+    uc13 .down.> uc15 : << includes >>
+
+}
+
+@enduml
