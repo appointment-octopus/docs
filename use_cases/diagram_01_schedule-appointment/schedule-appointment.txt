@@ -1,58 +1,69 @@
 @startuml
 skinparam packageStyle rectangle
-actor :User: as user
+
+actor :First Time\nUser: as first_time_user
+actor :Logged in\nUser: as loggedin_user
 
 rectangle "Schedule appointment" {
-    (UC_01_open-home-menu) as uc01
 
-    (UC_02_select-closest-date-automatically) as uc02
-        (UC_03_confirm-using-automatically-chosen-date) as uc03
+    (UC02 Select Appointment\nTime and Day) as select_appointment_time_and_day
 
-    (UC_04_search-in-calendar) as uc04
-        (UC_05_choose-preferred-date) as uc05
-        (UC_06_choose-preferred-hour) as uc06
+    (UC03 Select Type Of Appointment) as select_type_of_appointment
+        (UC04 Online Consultation) as online_consultation
+        (UC05 Presential Consultation) as presential_consultation
 
-    (UC_07_select-type-of-appointment) as uc07
-        (UC_08_online-consultation) as uc08
-        (UC_09_presential-consultation) as uc09
+    (UC06 View Shopping Cart) as view_shopping_cart
+        (UC07 Change Payment Method) as change_payment_method
+            (UC08 Select Bank Card) as select_bank_card
+                (UC09 Select card that\nhas already been\nregistered) as select_card_that_has_already_been_registered
+                (UC10 Add new card) as add_new_card
+            (UC11 Select Google Pay) as select_google_pay
+            (UC12 Select Apple Pay) as select_apple_pay
+        (UC13 Check Out) as check_out
 
-        (UC_10_help) as uc10
+    (UC14 Open home Menu) as open_home_menu
+    (UC15 Continue after\nWelcoming screen) as continue_after_welcoming_screen
 
-    (UC_11_add-item-to-cart) as uc11
-    (UC_12_shopping-cart) as uc12
-        (UC_13_change-credit-card) as uc13
-            (UC_14_add-new-credit-card) as uc14
-            (UC_15_select-other-credit-card) as uc15
-        (UC_16_check-out) as uc16
+    (UC20 Add new appointment) as add_new_appointment
+    (UC16 View list of\nnext appointments) as view_next_appointments
+    (UC17 View list of\nold appointments) as view_old_appointments
+    (UC21 Select appointment) as select_appointment
+    (UC18 See more details\nfrom online consultation) as see_more_details_from_online_consultation
+    (UC19 See more details\nfrom presential consultation) as see_more_details_from_presential_consultation
+
+    first_time_user  -up->  continue_after_welcoming_screen
+    loggedin_user    -up->  open_home_menu
+
+    open_home_menu                      .up.>  add_new_appointment : << includes >>
+    add_new_appointment                 <.up.  select_appointment_time_and_day : << extends >>
+    continue_after_welcoming_screen     <.up.  select_appointment_time_and_day : << extends >>
+
+    select_appointment_time_and_day     <.up.  select_type_of_appointment : << extends >>
+
+    select_type_of_appointment  .up.>  online_consultation : << includes >>
+    select_type_of_appointment  .up.>  presential_consultation : << includes >>
     
-    user -up- uc01
+    online_consultation <.up. view_shopping_cart : << extends >>
+    presential_consultation <.up. view_shopping_cart : << extends >>
 
-    uc01 -up-> uc02 : << includes >>
-    uc01 -up-> uc04 : << includes >>
+    view_shopping_cart .up.> change_payment_method : << includes >>
+    view_shopping_cart .up.> check_out : << includes >>
 
-    uc02 <.up. uc03 : << extends >>
-    
-    uc04 <.up. uc05 : << extends >>
-    uc05 <.up. uc06 : << extends >>
+    change_payment_method ..> select_bank_card : << includes >>    
+    change_payment_method ..> select_google_pay : << includes >>
+    change_payment_method ..> select_apple_pay : << includes >>
 
-    uc07 ..> uc03 : << extends >>
-    uc07 ..> uc06 : << extends >>
+    select_bank_card ..> select_card_that_has_already_been_registered : << includes >>
+    select_bank_card ..> add_new_card : << includes >>
 
-    uc07 .up.> uc08 : << includes >>
-    uc07 .up.> uc09 : << includes >>
-    uc07 .right.> uc10 : << includes >>
+    open_home_menu  .up.> view_next_appointments : << includes >>
+    open_home_menu  .up.> view_old_appointments : << includes >>
 
-    uc08 <.up. uc11 : << extends >>
-    uc09 <.up. uc11 : << extends >>
+    view_next_appointments  <.up. select_appointment : << extends >>
+    view_old_appointments  <.up. select_appointment : << extends >>
 
-    uc11 <.up. uc12 : << extends >>
-
-    uc12 .left.> uc13 : << includes >>
-    uc12 .up.> uc16 : << includes >>
-
-    uc13 .up.> uc14 : << includes >>
-    uc13 .down.> uc15 : << includes >>
-
+    select_appointment <.up. see_more_details_from_online_consultation : << extends >>
+    select_appointment <.up. see_more_details_from_presential_consultation : << extends >>
 }
 
 @enduml

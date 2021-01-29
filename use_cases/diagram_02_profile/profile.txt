@@ -1,0 +1,48 @@
+@startuml
+skinparam packageStyle rectangle
+
+actor :Logged in\nUser: as user
+
+rectangle "Profile" {
+
+    (UC01 Open profile menu) as open_profile_menu
+
+    (UC02 Edit name) as edit_name
+    (UC03 Edit date of birth) as edit_dof
+    (UC04 Edit gender) as edit_gender
+    (UC05 Edit email) as edit_email
+    (UC06 Edit cpf) as edit_cpf
+
+    (UC07 View registered\nbank cards) as view_cards
+    (UC08 Open "more" menu) as open_more_menu
+
+    (UC09 Add new photo) as add_new_photo
+    (UC10 Remove photo) as remove_photo
+    (UC11 Logout) as logout
+
+    (UC12 Add new card) as add_new_card
+    (UC13 Remove card) as remove_card
+    (UC14 Edit card) as edit_card
+
+    user -up->  open_profile_menu
+
+    open_profile_menu ..> edit_name : << includes >>
+    open_profile_menu ..> edit_dof : << includes >>
+    open_profile_menu ..> edit_gender : << includes >>
+    open_profile_menu ..> edit_email : << includes >>
+    open_profile_menu ..> edit_cpf : << includes >>
+
+    open_profile_menu ..up..> view_cards : << includes >>
+    open_profile_menu ..up..> open_more_menu : << includes >>
+
+    open_more_menu <.up. add_new_photo : << extends >>
+    open_more_menu <.up. remove_photo : << extends >>
+    open_more_menu <.up. logout : << extends >>
+
+    view_cards .up.> add_new_card : << includes >>
+    view_cards .up.> remove_card : << includes >>
+    view_cards .up.> edit_card : << includes >>
+
+}
+
+@enduml
