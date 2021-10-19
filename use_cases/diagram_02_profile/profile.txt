@@ -1,4 +1,5 @@
-@startuml
+@startuml profile
+
 skinparam packageStyle rectangle
 
 actor :Logged in\nUser: as user

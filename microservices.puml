@@ -1,0 +1,25 @@
+@startuml microservices
+skinparam backgroundcolor transparent
+
+component "User App" as userapp
+node Gateway
+node Payment
+node Auth
+node Appointment
+database User
+database Schedules
+database Availability
+
+userapp -- Gateway
+
+Gateway -- Payment
+Gateway -- Auth
+Gateway -- Appointment
+
+Payment ..> User
+Auth ..> User
+Appointment ..> User
+Appointment ..> Availability
+Appointment ..> Schedules
+
+@enduml
