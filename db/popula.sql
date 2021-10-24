@@ -1,7 +1,7 @@
 insert into USERS (CPF, gender, dateOfBirth, email, fullName, "password") 
 values ('35239782152', 'M', '2001-09-28', 'email@gmail.com', 'Martinho da Vila', 'senha');
 
-insert into celphone (celphoneNumber, fk_idUser)
+insert into cellphone (cellphoneNumber, fk_idUser)
 values ('+55 61 3232-8065', 1), ('+55 61 9 9989-8065', 1);
 
 insert into CREDIT_CARD (cardNumber, cardholderName, CVV, expirationYear, expirationMonth, fk_idUser) values
@@ -40,7 +40,7 @@ insert into APPOINTMENTS (fk_idUser, fk_idHour) values (1, 2);
 insert into APPOINTMENTS (fk_idUser, fk_idHour) values (1, 3);
 
 select * from USERS;
-select * from celphone where fk_idUser = 1;
+select * from cellphone where fk_idUser = 1;
 select * from CREDIT_CARD where fk_idUser = 1;
 select * from POSSIBLE_DAYS;
 select * from POSSIBLE_HOURS;
