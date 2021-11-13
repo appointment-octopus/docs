@@ -6,9 +6,8 @@ node Gateway
 node Payment
 node Auth
 node Appointment
-database User
-database Schedules
-database Availability
+database Database
+
 
 userapp -- Gateway
 
@@ -16,10 +15,10 @@ Gateway -- Payment
 Gateway -- Auth
 Gateway -- Appointment
 
-Payment ..> User
-Auth ..> User
-Appointment ..> User
-Appointment ..> Availability
-Appointment ..> Schedules
+Payment ..> Database
+Auth ..> Database
+Appointment ..> Database
+Appointment ..> Database
+Appointment ..> Database
 
 @enduml
